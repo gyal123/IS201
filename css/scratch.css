@@ -24,6 +24,7 @@ h2{
     font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
+
 .go-top {
     text-align: center;
 }
@@ -36,7 +37,8 @@ ol{
 }
 
 .image-container{
-    Margin-left: 483px;
+    text-align: center;
+    position:relative
 }
 
 .video-container{
