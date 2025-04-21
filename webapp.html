@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guess the Country: South America Edition</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #f0f8ff, #e6f7ff);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px;
+    }
+    h1 {
+      color: #1e4d2b;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+    .prompt {
+      font-size: 1.3rem;
+      margin: 20px 0;
+      text-align: center;
+      max-width: 600px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+    .option-button {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background-color: #e0f7fa;
+      border: 2px solid #00acc1;
+      border-radius: 12px;
+      padding: 10px 15px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+    .option-button:hover {
+      background-color: #b2ebf2;
+    }
+    .option-button img {
+      width: 24px;
+      height: auto;
+      border-radius: 3px;
+    }
+    .result {
+      margin-top: 25px;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Guess the Country: South America Edition</h1>
+  <div class="prompt" id="prompt">Loading...</div>
+  <div class="options" id="options"></div>
+  <div class="result" id="result"></div>
+
+  <script>
+    const flagUrls = {
+      Argentina: "https://flagcdn.com/w40/ar.png",
+      Brazil: "https://flagcdn.com/w40/br.png",
+      Chile: "https://flagcdn.com/w40/cl.png",
+      Colombia: "https://flagcdn.com/w40/co.png",
+      Ecuador: "https://flagcdn.com/w40/ec.png",
+      Peru: "https://flagcdn.com/w40/pe.png",
+      Uruguay: "https://flagcdn.com/w40/uy.png",
+      Bolivia: "https://flagcdn.com/w40/bo.png",
+      Venezuela: "https://flagcdn.com/w40/ve.png",
+      Paraguay: "https://flagcdn.com/w40/py.png"
+    };
+
+    const questions = [
+      {
+        prompt: "This country is famous for tango music and dancing, especially in Buenos Aires.",
+        answer: "Argentina",
+        options: ["Chile", "Argentina", "Colombia", "Peru"]
+      },
+      {
+        prompt: "This country celebrates Inti Raymi, a festival honoring the Incan sun god.",
+        answer: "Peru",
+        options: ["Brazil", "Ecuador", "Peru", "Uruguay"]
+      },
+      {
+        prompt: "This country is known for its colorful Carnival celebration in Rio de Janeiro.",
+        answer: "Brazil",
+        options: ["Brazil", "Venezuela", "Bolivia", "Paraguay"]
+      },
+      {
+        prompt: "This country's capital, Bogotá, has the famous Gold Museum showcasing pre-Columbian artifacts.",
+        answer: "Colombia",
+        options: ["Colombia", "Ecuador", "Argentina", "Chile"]
+      },
+      {
+        prompt: "This country is known for its Guaraní culture and bilingualism in Spanish and Guaraní.",
+        answer: "Paraguay",
+        options: ["Bolivia", "Paraguay", "Uruguay", "Brazil"]
+      }
+    ];
+
+    let currentQuestion = 0;
+
+    function showQuestion() {
+      const question = questions[currentQuestion];
+      document.getElementById('prompt').textContent = question.prompt;
+      const optionsDiv = document.getElementById('options');
+      optionsDiv.innerHTML = '';
+
+      question.options.forEach(option => {
+        const button = document.createElement('button');
+        button.className = 'option-button';
+        const img = document.createElement('img');
+        img.src = flagUrls[option];
+        img.alt = `${option} flag`;
+        button.appendChild(img);
+        button.appendChild(document.createTextNode(option));
+        button.onclick = () => checkAnswer(option);
+        optionsDiv.appendChild(button);
+      });
+
+      document.getElementById('result').textContent = '';
+    }
+
+    function checkAnswer(selected) {
+      const question = questions[currentQuestion];
+      const result = document.getElementById('result');
+      if (selected === question.answer) {
+        result.textContent = '✅ Correct!';
+        result.style.color = 'green';
+      } else {
+        result.textContent = `❌ Incorrect. The correct answer was ${question.answer}.`;
+        result.style.color = 'red';
+      }
+      currentQuestion++;
+      if (currentQuestion < questions.length) {
+        setTimeout(showQuestion, 2000);
+      } else {
+        setTimeout(() => {
+          document.getElementById('prompt').textContent = '🎉 You finished the game!';
+          document.getElementById('options').innerHTML = '';
+        }, 2000);
+      }
+    }
+
+    showQuestion();
+  </script>
+</body>
+</html>
