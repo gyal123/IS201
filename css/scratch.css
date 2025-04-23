@@ -37,7 +37,7 @@ ol{
 }
 
 .image-container{
-    text-align: center;
+    text-align:center;
     position:relative
 }
 
@@ -56,7 +56,7 @@ ol{
 
 .webapp{
     text-align: center;
-    font-family:Arial, Helvetica, sans-serif0;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .webapp a{
